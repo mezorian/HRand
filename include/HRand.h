@@ -1,23 +1,25 @@
 /**
- * HistoryBasedRandomValue.h
- * Purpose: defines class HistoryBasedRandomValue
+ * HRand.h
+ * Purpose: defines class HRand
  *
  * @author mezorian
  * @version 1.1.0
  */
 
-#ifndef HistoryBasedRandomValue_H
-#define HistoryBasedRandomValue_H
+#ifndef HRand_H
+#define HRand_H
+
+#include <stdexcept>
 
 /**
- * HistoryBasedRandomValue class
- * @brief HistoryBasedRandomValue generates history based random values
+ * HRand class
+ * @brief HRand generates history based random values
  *
  */
-class HistoryBasedRandomValue {
+class HRand {
     public:
         /* --- constructors / destructors --- */
-        HistoryBasedRandomValue(double minValue_, double maxValue_, double minDelta_,
+        HRand(double minValue_, double maxValue_, double minDelta_,
                                 double maxDelta_, double initialValue_ = 0.0);
 
         /* --- random value generation --- */
@@ -30,7 +32,8 @@ class HistoryBasedRandomValue {
         double minDelta;
         double maxDelta;
         double initialValue;
+        bool firstValueUsed;
 };
 
-#endif // HistoryBasedRandomValue_H
+#endif // HRand_H
 
