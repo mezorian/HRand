@@ -29,10 +29,11 @@ SOURCES += \
         src/DataBuffer.cpp \
         src/DummySensor.cpp \
         src/DummyValueStorage.cpp \
-        src/HistoryBasedRandomValue.cpp \
+        src/HRand.cpp \
         src/Sensor.cpp \
         test/ACS712_Current_SensorTest.cpp \
         test/DummySensorTest.cpp \
+        test/HRandTest.cpp \
         test/MainTestFile.cpp
 
 INCLUDEPATH += include/ \
@@ -50,7 +51,7 @@ HEADERS += \
     include/DataBuffer.h \
     include/DummySensor.h \
     include/DummyValueStorage.h \
-    include/HistoryBasedRandomValue.h \
+    include/HRand.h \
     include/Sensor.h \
     include/SensorType.h \
     mezorian/DateTimePP/include/DateTimePP.h \

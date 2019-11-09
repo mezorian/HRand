@@ -9,15 +9,9 @@
 #ifndef HistoryBasedRandomValue_H
 #define HistoryBasedRandomValue_H
 
-#include "CompileTimeOptions.h"
-
-#ifdef DUMMY_VALUES
-
-#include "DataBuffer.h"
-
 /**
  * HistoryBasedRandomValue class
- * @brief HistoryBasedRandomValue stores a DataBuffer filled with dummy values
+ * @brief HistoryBasedRandomValue generates history based random values
  *
  */
 class HistoryBasedRandomValue {
@@ -26,7 +20,7 @@ class HistoryBasedRandomValue {
         HistoryBasedRandomValue(double minValue_, double maxValue_, double minDelta_,
                                 double maxDelta_, double initialValue_ = 0.0);
 
-        /* --- random dummy value generation --- */
+        /* --- random value generation --- */
         double getNewValue();
 
     private:
@@ -37,8 +31,6 @@ class HistoryBasedRandomValue {
         double maxDelta;
         double initialValue;
 };
-
-#endif DUMMY_VALUES
 
 #endif // HistoryBasedRandomValue_H
 

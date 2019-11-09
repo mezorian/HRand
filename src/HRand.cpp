@@ -7,9 +7,7 @@
  */
 
 
-#include "HistoryBasedRandomValue.h"
-
-#ifdef DUMMY_VALUES
+#include "HRand.h"
 
 HistoryBasedRandomValue::HistoryBasedRandomValue(double minValue_, double maxValue_, double minDelta_, double maxDelta_, double initialValue_)
     : minValue(minValue_),
@@ -18,7 +16,5 @@ HistoryBasedRandomValue::HistoryBasedRandomValue(double minValue_, double maxVal
       maxDelta(maxDelta_),
       initialValue(initialValue_) {
 
-
 }
 
-#endif DUMMY_VALUES
