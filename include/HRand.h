@@ -10,6 +10,9 @@
 #define HRand_H
 
 #include <stdexcept>
+#include <random>
+#include <ctime>
+#include <functional>
 
 /**
  * HRand class
@@ -33,6 +36,10 @@ class HRand {
         double maxDelta;
         double initialValue;
         bool firstValueUsed;
+
+        const unsigned int seed = time(NULL);
+        std::mt19937_64 *randomNumberGenerator;
+        std::uniform_real_distribution<double> *unif;
 };
 
 #endif // HRand_H

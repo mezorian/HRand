@@ -123,39 +123,13 @@ TEST_CASE("Test if HRand throws exceptions at initialization only for wrong argu
         willThrowException = false;
     }
 
-    SECTION("maxDelta - minDelta > max - min") {
-        min=-10;
-        max=10;
-        minDelta=-10;
-        maxDelta=10.001;
-        initialValue=0.0;
-        willThrowException = true;
-    }
-
-    SECTION("maxDelta - minDelta == max - min") {
-        min=-10;
-        max=10;
-        minDelta=-10;
-        maxDelta=10;
-        initialValue=0.0;
-        willThrowException = false;
-    }
-
-    SECTION("maxDelta - minDelta < max - min") {
-        min=-10;
-        max=10;
-        minDelta=-10;
-        maxDelta=5;
-        initialValue=0.0;
-        willThrowException = false;
-    }
-
     HRand* value;
     if (willThrowException) {
         REQUIRE_THROWS(value = new HRand(min,max,minDelta,maxDelta,initialValue));
     } else {
         REQUIRE_NOTHROW(value = new HRand(min,max,minDelta,maxDelta,initialValue));
     }
+
 
 }
 
@@ -169,6 +143,14 @@ TEST_CASE("Test if HRand works if initialized with initialValue set") {
         minDelta=0.0;
         maxDelta=0.0;
         initialValue=0.0;
+    }
+
+    SECTION("all values are 0.0") {
+        min=-10.0;
+        max=10.0;
+        minDelta=-1.0;
+        maxDelta=1.0;
+        initialValue=2.0;
     }
 
     SECTION("all values are DBL_MAX") {
@@ -202,7 +184,6 @@ TEST_CASE("Test if HRand works if initialized with initialValue set") {
         maxDelta=DBL_MAX;
         initialValue=DBL_MAX;
     }
-
 
     SECTION("normal positive values") {
         min=15.678;
@@ -279,5 +260,10 @@ TEST_CASE("Test if HRand works if initialized with initialValue set") {
         double hRandValue = value.getNewValue();
         REQUIRE(hRandValue >= min);
         REQUIRE(hRandValue <= max);
+        if (hRandValue != previousValue) {
+            REQUIRE(static_cast<long double>(hRandValue) >= static_cast<long double>(previousValue) + static_cast<long double>(minDelta));
+            REQUIRE(static_cast<long double>(hRandValue) <= static_cast<long double>(previousValue) + static_cast<long double>(maxDelta));
+        }
+        previousValue = hRandValue;
     }
 }
