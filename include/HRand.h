@@ -23,7 +23,10 @@ class HRand {
     public:
         /* --- constructors / destructors --- */
         HRand(double minValue_, double maxValue_, double minDelta_,
-                                double maxDelta_, double initialValue_ = 0.0);
+                                double maxDelta_, double initialValue_);
+
+        HRand(double minValue_, double maxValue_,
+              double minDelta_, double maxDelta_);
 
         /* --- random value generation --- */
         double getNewValue();
@@ -39,7 +42,15 @@ class HRand {
 
         const unsigned int seed = time(NULL);
         std::mt19937_64 *randomNumberGenerator;
-        std::uniform_real_distribution<double> *unif;
+        std::uniform_real_distribution<double> *initialValueDistribution;
+
+        std::uniform_real_distribution<double> *deltaDistribution;
+
+        void checkParameters(double minValue_, double maxValue_,
+                             double minDelta_, double maxDelta_);
+
+        void checkParameters(double minValue_, double maxValue_, double minDelta_,
+                             double maxDelta_, double initialValue_);
 };
 
 #endif // HRand_H
