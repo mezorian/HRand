@@ -13,6 +13,7 @@
 #include <random>
 #include <ctime>
 #include <functional>
+#include <iostream>
 
 /**
  * HRand class

@@ -131,8 +131,7 @@ TEST_CASE("Test if HRand throws exceptions at initialization only for wrong argu
     }
 }
 
-
-TEST_CASE("Test if HRand works if initialized with initialValue set") {
+TEST_CASE("Test if HRand returns initial value and nextValues which are in the valid range if initialized with initialValue set") {
 
     double min=0.0, max=0.0, minDelta=0.0, maxDelta=0.0, initialValue=0.0;
 
@@ -267,8 +266,7 @@ TEST_CASE("Test if HRand works if initialized with initialValue set") {
     }
 }
 
-
-TEST_CASE("Test if HRand works if initialized without initialValue set") {
+TEST_CASE("Test if HRand returns initial value and nextValues which are in the valid range if initialized without initialValue set") {
 
     double min=0.0, max=0.0, minDelta=0.0, maxDelta=0.0;
 
@@ -445,4 +443,30 @@ TEST_CASE("Test if getNewValue returns the previous value if it cannot generate 
     }
 }
 
+TEST_CASE("Test if HRand returns increasing values if deltaMin and deltaMax are both positive"){
+    double min=0.0, max=0.0, minDelta=0.0, maxDelta=0.0;
 
+    SECTION("all values are 0.0") {
+        min=0.0;
+        max=100.0;
+        minDelta=0.5;
+        maxDelta=5.0;
+    }
+
+    HRand value(min,max,minDelta,maxDelta);
+
+    double previousValue = value.getNewValue();
+
+    for (int i=0; i < 100; i++) {
+        double hRandValue = value.getNewValue();
+        if (hRandValue > previousValue) {
+            REQUIRE(hRandValue > previousValue);
+        } else {
+            REQUIRE(hRandValue <= max);
+            REQUIRE(hRandValue >= max - maxDelta);
+        }
+        previousValue = hRandValue;
+    }
+
+
+}

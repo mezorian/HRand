@@ -6,7 +6,6 @@
  * @version 1.1.0
  */
 
-
 #include "HRand.h"
 
 /**
@@ -77,7 +76,7 @@ HRand::HRand(double minValue_, double maxValue_, double minDelta_, double maxDel
     value = maxValue_;
 
     // try five times to generate a valid random value within the ranges of minValue and maxValue
-    for (int i=0; i<5; i++) {
+    for (int i=0; i<50; i++) {
 
         double nextValue = (*initialValueDistribution)(*randomNumberGenerator);
         if ( (nextValue >= minValue) && (nextValue <= maxValue) ) {
@@ -107,7 +106,7 @@ double HRand::getNewValue() {
     // otherwise try to generate a new random value within the range of minValue and maxValue
     } else {
 
-        for (int i=0; i<5; i++) {
+        for (int i=0; i<50; i++) {
 
             // generate a new random value based on the the previous value
             long double nextValue = static_cast<long double>(value);
@@ -123,6 +122,7 @@ double HRand::getNewValue() {
     }
 
     // return the new random value
+    std::cout << value << std::endl;
     return value;
 }
 
