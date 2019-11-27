@@ -524,5 +524,87 @@ TEST_CASE("Test if HRand returns increasing values if deltaMin and deltaMax are 
         previousValue = hRandValue;
     }
 
+}
+
+TEST_CASE("Test if HRand returns decreasing values if deltaMin and deltaMax are both negative"){
+    double min=0.0, max=0.0, minDelta=0.0, maxDelta=0.0;
+
+    SECTION("small positive values") {
+        min=0.0;
+        max=100.0;
+        minDelta=-5.0;
+        maxDelta=-0.5;
+    }
+
+    SECTION("big positive values") {
+        min=10000;
+        max=510000000;
+        minDelta=-12000;
+        maxDelta=-1000;
+    }
+
+    SECTION("very big positive values up to DBL_MAX") {
+        min=0.0;
+        max=DBL_MAX;
+        minDelta=-DBL_MAX;
+        maxDelta=-1000;
+    }
+
+    SECTION("small negative values") {
+        min=-100.0;
+        max=0.0;
+        minDelta=-5.0;
+        maxDelta=-0.5;
+    }
+
+    SECTION("big positive values") {
+        min=-510000000;
+        max=-10000;
+        minDelta=-12000;
+        maxDelta=-1000;
+    }
+
+    SECTION("very big positive values up to DBL_MAX") {
+        min=-DBL_MAX;
+        max=0;
+        minDelta=-DBL_MAX;
+        maxDelta=-1000;
+    }
+
+    SECTION("small positive and negative values") {
+        min=-50;
+        max=100.0;
+        minDelta=-5.0;
+        maxDelta=-0.5;
+    }
+
+    SECTION("big positive and negative values") {
+        min=-10000;
+        max=510000000;
+        minDelta=-12000;
+        maxDelta=-1000;
+    }
+
+    SECTION("very big positive and negative values up to DBL_MAX") {
+        min=-DBL_MAX;
+        max=DBL_MAX;
+        minDelta=-DBL_MAX;
+        maxDelta=-1000;
+    }
+
+    HRand value(min,max,minDelta,maxDelta);
+
+    double previousValue = value.getNewValue();
+
+    for (int i=0; i < 100; i++) {
+        double hRandValue = value.getNewValue();
+        if (hRandValue < previousValue) {
+            REQUIRE(hRandValue < previousValue);
+        } else {
+            REQUIRE(hRandValue >= min);
+            REQUIRE(hRandValue <= min - minDelta);
+        }
+        previousValue = hRandValue;
+    }
 
 }
