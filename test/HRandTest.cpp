@@ -446,11 +446,67 @@ TEST_CASE("Test if getNewValue returns the previous value if it cannot generate 
 TEST_CASE("Test if HRand returns increasing values if deltaMin and deltaMax are both positive"){
     double min=0.0, max=0.0, minDelta=0.0, maxDelta=0.0;
 
-    SECTION("all values are 0.0") {
+    SECTION("small positive values") {
         min=0.0;
         max=100.0;
         minDelta=0.5;
         maxDelta=5.0;
+    }
+
+    SECTION("big positive values") {
+        min=10000;
+        max=510000000;
+        minDelta=1000;
+        maxDelta=12000;
+    }
+
+    SECTION("very big positive values up to DBL_MAX") {
+        min=0.0;
+        max=DBL_MAX;
+        minDelta=1000;
+        maxDelta=DBL_MAX;
+    }
+
+    SECTION("small negative values") {
+        min=-100.0;
+        max=0.0;
+        minDelta=0.5;
+        maxDelta=5.0;
+    }
+
+    SECTION("big positive values") {
+        min=-510000000;
+        max=-10000;
+        minDelta=1000;
+        maxDelta=12000;
+    }
+
+    SECTION("very big positive values up to DBL_MAX") {
+        min=-DBL_MAX;
+        max=0;
+        minDelta=1000;
+        maxDelta=DBL_MAX;
+    }
+
+    SECTION("small positive and negative values") {
+        min=-50;
+        max=100.0;
+        minDelta=0.5;
+        maxDelta=5.0;
+    }
+
+    SECTION("big positive and negative values") {
+        min=-10000;
+        max=510000000;
+        minDelta=1000;
+        maxDelta=12000;
+    }
+
+    SECTION("very big positive and negative values up to DBL_MAX") {
+        min=-DBL_MAX;
+        max=DBL_MAX;
+        minDelta=1000;
+        maxDelta=DBL_MAX;
     }
 
     HRand value(min,max,minDelta,maxDelta);
