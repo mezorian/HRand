@@ -20,3 +20,4 @@ To easily create such values the HRand class can be used
 - [x] above requirements are tested
 - [x] ci working
 - [x] coverage working
+  
